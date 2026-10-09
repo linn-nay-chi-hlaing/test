@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LearnHub Dashboard</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f6fc;
+        color: #25243a;
+        line-height: 1.6;
+      }
+
+      /* Sticky navigation */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: white;
+        padding: 18px 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px #0000000d;
+      }
+
+      .logo {
+        color: #6c4ce3;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 25px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #55546a;
+      }
+
+      .nav-links a:hover {
+        color: #6c4ce3;
+      }
+
+      .profile {
+        background: #eee9ff;
+        color: #6c4ce3;
+        padding: 8px 13px;
+        border-radius: 50%;
+        font-weight: bold;
+      }
+
+      /* Main layout */
+      .container {
+        max-width: 1100px;
+        margin: 35px auto;
+        padding: 0 24px;
+      }
+
+      .welcome {
+        margin-bottom: 28px;
+      }
+
+      .welcome h1 {
+        font-size: 32px;
+        margin-bottom: 5px;
+      }
+
+      .welcome p {
+        color: #77768a;
+      }
+
+      /* Progress banner */
+      .progress-banner {
+        background: #6c4ce3;
+        color: white;
+        border-radius: 18px;
+        padding: 28px;
+        margin-bottom: 35px;
+      }
+
+      .progress-banner h2 {
+        margin-bottom: 8px;
+      }
+
+      .progress-track {
+        height: 9px;
+        background: #ffffff55;
+        border-radius: 10px;
+        margin-top: 18px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        width: 65%;
+        height: 100%;
+        background: #ffd36a;
+        border-radius: 10px;
+      }
+
+      /* Sticky course section heading */
+      .section-heading {
+        position: sticky;
+        top: 76px;
+        z-index: 50;
+        background: #f5f6fc;
+        padding: 14px 0;
+        margin-bottom: 18px;
+      }
+
+      .section-heading h2 {
+        font-size: 24px;
+      }
+
+      /* Course cards */
+      .course-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+        margin-bottom: 40px;
+      }
+
+      .course-card {
+        position: relative;
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px #25243a0b;
+      }
+
+      .course-image {
+        height: 145px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 50px;
+      }
+
+      .purple {
+        background: #e8e0ff;
+      }
+
+      .yellow {
+        background: #fff0c8;
+      }
+
+      .blue {
+        background: #dceeff;
+      }
+
+      /* Absolute badge */
+      .badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: #ff6b81;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .course-info {
+        padding: 18px;
+      }
+
+      .course-info p {
+        color: #77768a;
+        font-size: 14px;
+        margin: 8px 0 15px;
+      }
+
+      .course-progress {
+        height: 6px;
+        background: #e9e9f1;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 14px;
+      }
+
+      .course-progress span {
+        display: block;
+        height: 100%;
+        background: #6c4ce3;
+      }
+
+      .course-info button {
+        width: 100%;
+        border: none;
+        background: #6c4ce3;
+        color: white;
+        padding: 11px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .course-info button:hover {
+        background: #5235c4;
+      }
+
+      /* Recent activity */
+      .activity {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 50px;
+      }
+
+      .activity h2 {
+        margin-bottom: 15px;
+      }
+
+      .activity-item {
+        padding: 14px 0;
+        border-bottom: 1px solid #eeeef4;
+      }
+
+      .activity-item:last-child {
+        border-bottom: none;
+      }
+
+      .activity-item span {
+        color: #77768a;
+        font-size: 13px;
+      }
+
+      /* Fixed help button */
+      .help-button {
+        position: fixed;
+        right: 25px;
+        bottom: 25px;
+        width: 58px;
+        height: 58px;
+        border: none;
+        border-radius: 50%;
+        background: #6c4ce3;
+        color: white;
+        font-size: 25px;
+        box-shadow: 0 5px 18px #6c4ce355;
+        cursor: pointer;
+        z-index: 200;
+      }
+
+      /* Responsive layout */
+      @media (max-width: 800px) {
+        .course-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .nav-links {
+          gap: 12px;
+        }
+      }
+
+      @media (max-width: 550px) {
+        .course-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .welcome h1 {
+          font-size: 26px;
+        }
+
+        .navbar {
+          padding: 16px 22px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="logo">LearnHub.</div>
+
+      <ul class="nav-links">
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#courses">My Courses</a></li>
+        <li><a href="#activity">Activity</a></li>
+      </ul>
+
+      <div class="profile">L</div>
+    </nav>
+
+    <main class="container">
+      <section class="welcome">
+        <h1>Welcome back, Learner! 👋</h1>
+        <p>Keep learning. You're making great progress.</p>
+      </section>
+
+      <section class="progress-banner">
+        <h2>Your Learning Journey</h2>
+        <p>You've completed 65% of your learning goals.</p>
+
+        <div class="progress-track">
+          <div class="progress-fill"></div>
+        </div>
+      </section>
+
+      <section id="courses">
+        <div class="section-heading">
+          <h2>My Courses</h2>
+        </div>
+
+        <div class="course-grid">
+          <article class="course-card">
+            <span class="badge">NEW</span>
+
+            <div class="course-image purple">💻</div>
+
+            <div class="course-info">
+              <h3>HTML & CSS Basics</h3>
+              <p>Learn the foundations of web development.</p>
+
+              <div class="course-progress">
+                <span style="width: 80%"></span>
+              </div>
+
+              <button>Continue Learning</button>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <span class="badge">POPULAR</span>
+
+            <div class="course-image yellow">🎨</div>
+
+            <div class="course-info">
+              <h3>UI Design Fundamentals</h3>
+              <p>Design beautiful and user-friendly interfaces.</p>
+
+              <div class="course-progress">
+                <span style="width: 50%"></span>
+              </div>
+
+              <button>Continue Learning</button>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <div class="course-image blue">⚡</div>
+
+            <div class="course-info">
+              <h3>JavaScript Essentials</h3>
+              <p>Make your websites interactive with JavaScript.</p>
+
+              <div class="course-progress">
+                <span style="width: 35%"></span>
+              </div>
+
+              <button>Continue Learning</button>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <span class="badge">NEW</span>
+
+            <div class="course-image yellow">📱</div>
+
+            <div class="course-info">
+              <h3>Responsive Web Design</h3>
+              <p>Create layouts for mobile and desktop screens.</p>
+
+              <div class="course-progress">
+                <span style="width: 20%"></span>
+              </div>
+
+              <button>Continue Learning</button>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <div class="course-image purple">🧩</div>
+
+            <div class="course-info">
+              <h3>CSS Layout Mastery</h3>
+              <p>Practice Flexbox, Grid, and positioning.</p>
+
+              <div class="course-progress">
+                <span style="width: 60%"></span>
+              </div>
+
+              <button>Continue Learning</button>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <div class="course-image blue">🚀</div>
+
+            <div class="course-info">
+              <h3>Build Your First Website</h3>
+              <p>Combine your skills in a complete project.</p>
+
+              <div class="course-progress">
+                <span style="width: 10%"></span>
+              </div>
+
+              <button>Continue Learning</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="activity" id="activity">
+        <h2>Recent Activity</h2>
+
+        <div class="activity-item">
+          <strong>HTML & CSS Basics</strong>
+          <br />
+          <span>Completed Lesson 8 · 2 hours ago</span>
+        </div>
+
+        <div class="activity-item">
+          <strong>UI Design Fundamentals</strong>
+          <br />
+          <span>Submitted an assignment · Yesterday</span>
+        </div>
+
+        <div class="activity-item">
+          <strong>JavaScript Essentials</strong>
+          <br />
+          <span>Started a new lesson · 2 days ago</span>
+        </div>
+      </section>
+    </main>
+
+    <button class="help-button" aria-label="Get help">?</button>
+  </body>
+</html>
